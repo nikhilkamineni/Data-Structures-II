@@ -2,6 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
+/* eslint-disable */
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
@@ -16,7 +17,7 @@ class BinarySearchTree {
     // iterate over subtrees while checking if value is +/- to find out which path to go down
     // find the subtree that returns undefined as 
     // assign new BinarySearchTree to be either this.left or this.right value
-    
+
   }
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
