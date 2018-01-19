@@ -70,7 +70,26 @@ class Graph {
   // and removes the vertex if it is found
   // This function should also handle the removing of all edge references for the removed vertex
   removeVertex(value) {
-
+    // check if graph node that contains value exists
+    let exists;
+    let toRemove;
+    this.vertices.forEach((vertex) => {
+      if (vertex.value === value) {
+        exists = true;
+        toRemove = vertex;
+      }
+    })
+    // if true, iterate over all the nodes and their individual edges array and remove the node
+    if (exists === true) {
+      this.vertices.forEach((vertex) => {
+        vertex.edges = vertex.edges.filter((edge) => {
+          return !toRemove;
+        })
+      })
+      this.vertices = this.vertices.filter((vertex) => {
+        return !toRemove;
+      })
+    }
   }
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
