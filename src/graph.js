@@ -90,14 +90,21 @@ class Graph {
         return !toRemove;
       })
     }
-  }
+  } 
   // Checks the two input vertices to see if each one references the other in their respective edges array
   // Both vertices must reference each other for the edge to be considered valid
   // If only one vertex references the other but not vice versa, should not return true
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-
+    const fromEdges = [];
+    const toEdges = [];
+    this.vertices.forEach((vertex) => {
+      if (fromVertex === vertex) fromEdges = vertex.edges;
+      if (toVertex === vertex) toEdges = vertex.edges;
+    })
+    if (fromEdges.includes(toVertex) && toEdges.includes(fromVertex)) return true;
+    return false;
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
@@ -112,7 +119,7 @@ class Graph {
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
-
+    
   }
 }
 
