@@ -3,6 +3,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable */
+const Queue = require('./queue-helper');
+
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
@@ -45,11 +47,7 @@ class BinarySearchTree {
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-    // depth first needs to pass the first node through the calallback
-    // function.
     cb(this.value);
-    // then we need to check if there is a node to the left and
-    // run it through the callback function
     if (this.left) {
      this.left.depthFirstForEach(cb);
     }  
@@ -64,7 +62,18 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-
+    const queue = new Queue();
+    queue.enqueue(this);
+    while (!queue.isEmpty()) {
+      const node = queue.dequeue();
+      if (node.left) {
+        queue.enqueue(node.left);
+      }
+      if (node.right) {
+        queue.enqueue(node.right);
+      }
+      cb(node.value);
+    }
   }
 }
 
