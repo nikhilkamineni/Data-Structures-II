@@ -61,7 +61,10 @@ class Graph {
   // Checks all the vertices of the graph for the target value
   // Returns true or false
   contains(value) {
-
+    this.vertice.forEach((vertex) => {
+      if (vertex.value === value) return true;
+      return false;
+    })
   }
   // Checks the graph to see if a GraphNode with the specified value exists in the graph 
   // and removes the vertex if it is found
