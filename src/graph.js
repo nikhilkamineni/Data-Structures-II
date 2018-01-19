@@ -97,8 +97,8 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use 
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-    const fromEdges = [];
-    const toEdges = [];
+    let fromEdges = [];
+    let toEdges = [];
     this.vertices.forEach((vertex) => {
       if (fromVertex === vertex) fromEdges = vertex.edges;
       if (toVertex === vertex) toEdges = vertex.edges;
@@ -109,7 +109,7 @@ class Graph {
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
-    if (!checkIfEdgeExists(fromVertex, toVertex)) {
+    if (!this.checkIfEdgeExists(fromVertex, toVertex)) {
       fromVertex.pushToEdges(toVertex);
       toVertex.pushToEdges(fromVertex);
     }
@@ -119,7 +119,16 @@ class Graph {
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
-    
+    if (this.checkIfEdgeExists(fromVertex, toVertex)) {
+      fromVertex.edges = fromVertex.edges.filter((edge) => {return !toVertex});
+      toVertex.edge = toVertex.edges.filter((edge) => {return !fromVertex});
+      if (fromVertex.numberOfEdges === 0) {
+        this.vertices = this.vertices.filter((vertex) => {return !fromVertex});
+      }
+      if (toVertex.numberOfEdges === 0) {
+        this.vertices = this.vertices.filter((vertex) => {return !toVertex});
+      }
+    }
   }
 }
 
